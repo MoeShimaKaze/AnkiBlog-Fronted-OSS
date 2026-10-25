@@ -1,0 +1,583 @@
+/**
+ * 穿搭管理页面
+ * 支持日历视图和卡片画廊视图切换
+ */
+import React, { useState, useEffect } from 'react';
+import { Card, Button, Space, Row, Col, Spin, Empty, Modal, message, Segmented, Statistic } from 'antd';
+import {
+    CalendarOutlined,
+    AppstoreOutlined,
+    PlusOutlined,
+    SkinOutlined,
+    DeleteOutlined,
+    ExclamationCircleOutlined
+} from '@ant-design/icons';
+import type { Dayjs } from 'dayjs';
+import dayjs from 'dayjs';
+
+import { usePageTitle } from '@/hooks/business/usePageTitle';
+import OutfitCalendar from '@/components/Outfit/OutfitCalendar';
+import OutfitCard from '@/components/Outfit/OutfitCard';
+import OutfitCreateModal from '@/components/Outfit/OutfitCreateModal';
+import type { OutfitLog, OutfitStats } from '@/types/outfit';
+import * as outfitService from '@/services/outfitService';
+import { glassCardStyle } from '@/constants/styles';
+
+type ViewMode = 'calendar' | 'gallery';
+
+const OutfitManagement: React.FC = () => {
+    usePageTitle('穿搭管理', {
+        siteName: 'AnkiBlog',
+        siteTagline: 'Anki的歇脚处'
+    });
+
+    const [viewMode, setViewMode] = useState<ViewMode>('calendar');
+    const [outfits, setOutfits] = useState<OutfitLog[]>([]);
+    const [stats, setStats] = useState<OutfitStats | null>(null);
+    const [loading, setLoading] = useState(false);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [total, setTotal] = useState(0);
+    const pageSize = 12;
+
+    // 弹窗状态
+    const [createModalVisible, setCreateModalVisible] = useState(false);
+    const [selectedDate, setSelectedDate] = useState<Dayjs>(dayjs());
+    const [detailModalVisible, setDetailModalVisible] = useState(false);
+    const [selectedOutfit, setSelectedOutfit] = useState<OutfitLog | null>(null);
+
+    useEffect(() => {
+        loadStats();
+    }, []);
+
+    useEffect(() => {
+        if (viewMode === 'gallery') {
+            loadOutfits();
+        }
+    }, [viewMode, currentPage]);
+
+    const loadOutfits = async () => {
+        setLoading(true);
+        try {
+            const res = await outfitService.getOutfits({ page: currentPage - 1, size: pageSize });
+            if (res.success) {
+                setOutfits(res.data.content || []);
+                setTotal(res.data.totalElements);
+            }
+        } catch (error) {
+            console.error('加载穿搭列表失败:', error);
+            message.error('加载穿搭列表失败');
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const loadStats = async () => {
+        try {
+            const res = await outfitService.getOutfitStats();
+            if (res.success) {
+                setStats(res.data);
+            }
+        } catch (error) {
+            console.error('加载统计数据失败:', error);
+        }
+    };
+
+    const handleAddOutfit = (date: Dayjs) => {
+        setSelectedDate(date);
+        setCreateModalVisible(true);
+    };
+
+    const handleViewOutfit = (outfit: OutfitLog) => {
+        setSelectedOutfit(outfit);
+        setDetailModalVisible(true);
+    };
+
+    const handleDeleteOutfit = async (outfit: OutfitLog) => {
+        Modal.confirm({
+            title: '确认删除',
+            icon: <ExclamationCircleOutlined style={{ color: '#ff4d4f' }} />,
+            content: `确定要删除 ${dayjs(outfit.outfitDate).format('YYYY-MM-DD')} 的穿搭记录吗？`,
+            okText: '删除',
+            okType: 'danger',
+            cancelText: '取消',
+            className: 'dark-confirm-modal',
+            onOk: async () => {
+                try {
+                    const res = await outfitService.deleteOutfit(outfit.id);
+                    if (res.success) {
+                        message.success('删除成功');
+                        if (viewMode === 'gallery') {
+                            loadOutfits();
+                        }
+                        loadStats();
+                    }
+                } catch (error) {
+                    message.error('删除失败');
+                }
+            }
+        });
+    };
+
+    const handleCreateSuccess = () => {
+        setCreateModalVisible(false);
+        if (viewMode === 'gallery') {
+            loadOutfits();
+        }
+        loadStats();
+    };
+
+    const handleDateSelect = (date: Dayjs, outfits: OutfitLog[]) => {
+        if (outfits.length > 0) {
+            setSelectedOutfit(outfits[0]);
+            setDetailModalVisible(true);
+        } else {
+            // 没有穿搭记录，可以选择创建
+            setSelectedDate(date);
+        }
+    };
+
+    const statsCardStyle: React.CSSProperties = {
+        ...glassCardStyle,
+        padding: '20px',
+        textAlign: 'center'
+    };
+
+    // 暗色玻璃拟态Modal样式
+    const detailModalStyles = {
+        mask: {
+            backgroundColor: 'rgba(0, 0, 0, 0.6)',
+            backdropFilter: 'blur(4px)',
+        },
+        content: {
+            backgroundColor: 'rgba(30, 30, 30, 0.95)',
+            backdropFilter: 'blur(20px)',
+            border: '1px solid rgba(255, 255, 255, 0.2)',
+            borderRadius: '16px',
+            boxShadow: '0 20px 40px rgba(0, 0, 0, 0.5)',
+        },
+        header: {
+            backgroundColor: 'transparent',
+            borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
+            color: 'white',
+        },
+        body: {
+            backgroundColor: 'transparent',
+            padding: '24px',
+        },
+        footer: {
+            backgroundColor: 'transparent',
+            borderTop: '1px solid rgba(255, 255, 255, 0.1)',
+        },
+    };
+
+    return (
+        <div style={{ padding: '16px', minHeight: '100vh' }}>
+            {/* 全局暗色样式 */}
+            <style>{`
+                /* Segmented 暗色玻璃拟态样式 */
+                .dark-segmented.ant-segmented {
+                    background: rgba(255, 255, 255, 0.1) !important;
+                    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+                    border-radius: 10px !important;
+                    padding: 3px !important;
+                }
+                .dark-segmented .ant-segmented-item {
+                    color: rgba(255, 255, 255, 0.7) !important;
+                    transition: all 0.3s ease !important;
+                }
+                .dark-segmented .ant-segmented-item:hover {
+                    color: rgba(255, 255, 255, 0.9) !important;
+                }
+                .dark-segmented .ant-segmented-item-selected {
+                    background: linear-gradient(135deg, rgba(24, 144, 255, 0.8) 0%, rgba(114, 46, 209, 0.8) 100%) !important;
+                    color: white !important;
+                    border-radius: 8px !important;
+                    box-shadow: 0 4px 12px rgba(24, 144, 255, 0.3) !important;
+                }
+                .dark-segmented .ant-segmented-thumb {
+                    background: transparent !important;
+                }
+                .dark-segmented .ant-segmented-item-label {
+                    min-height: 32px !important;
+                    line-height: 32px !important;
+                    padding: 0 12px !important;
+                }
+                .dark-segmented .ant-segmented-item-icon {
+                    margin-right: 6px !important;
+                }
+                @media (max-width: 640px) {
+                    .dark-segmented .ant-segmented-item-label {
+                        padding: 0 8px !important;
+                    }
+                    .dark-segmented .ant-segmented-item-icon + span {
+                        display: none !important;
+                    }
+                }
+
+                /* 详情弹窗样式 */
+                .detail-modal .ant-modal-title {
+                    color: white !important;
+                }
+                .detail-modal .ant-modal-close {
+                    color: rgba(255, 255, 255, 0.7) !important;
+                }
+                .detail-modal .ant-modal-close:hover {
+                    color: white !important;
+                    background: rgba(255, 255, 255, 0.1) !important;
+                }
+                .detail-modal .ant-modal-footer .ant-btn-default {
+                    background: rgba(255, 255, 255, 0.1) !important;
+                    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+                    color: rgba(255, 255, 255, 0.9) !important;
+                }
+                .detail-modal .ant-modal-footer .ant-btn-default:hover {
+                    background: rgba(255, 255, 255, 0.15) !important;
+                    border-color: rgba(255, 255, 255, 0.4) !important;
+                    color: white !important;
+                }
+                .detail-modal .ant-modal-footer .ant-btn-dangerous {
+                    background: rgba(255, 77, 79, 0.2) !important;
+                    border: 1px solid rgba(255, 77, 79, 0.4) !important;
+                    color: #ff7875 !important;
+                }
+                .detail-modal .ant-modal-footer .ant-btn-dangerous:hover {
+                    background: rgba(255, 77, 79, 0.3) !important;
+                    border-color: rgba(255, 77, 79, 0.6) !important;
+                    color: #ff4d4f !important;
+                }
+
+                /* 确认弹窗暗色样式 */
+                .dark-confirm-modal .ant-modal-content {
+                    background: rgba(30, 30, 30, 0.95) !important;
+                    backdrop-filter: blur(20px) !important;
+                    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+                    border-radius: 16px !important;
+                }
+                .dark-confirm-modal .ant-modal-confirm-title {
+                    color: white !important;
+                }
+                .dark-confirm-modal .ant-modal-confirm-content {
+                    color: rgba(255, 255, 255, 0.8) !important;
+                }
+                .dark-confirm-modal .ant-btn-default {
+                    background: rgba(255, 255, 255, 0.1) !important;
+                    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+                    color: rgba(255, 255, 255, 0.9) !important;
+                }
+                .dark-confirm-modal .ant-btn-default:hover {
+                    background: rgba(255, 255, 255, 0.15) !important;
+                    border-color: rgba(255, 255, 255, 0.4) !important;
+                    color: white !important;
+                }
+                .dark-confirm-modal .ant-btn-dangerous {
+                    background: rgba(255, 77, 79, 0.8) !important;
+                    border: none !important;
+                }
+                .dark-confirm-modal .ant-btn-dangerous:hover {
+                    background: rgba(255, 77, 79, 1) !important;
+                }
+
+                /* 分页按钮暗色样式 */
+                .dark-pagination .ant-btn {
+                    background: rgba(255, 255, 255, 0.1) !important;
+                    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+                    color: rgba(255, 255, 255, 0.9) !important;
+                }
+                .dark-pagination .ant-btn:hover:not(:disabled) {
+                    background: rgba(255, 255, 255, 0.15) !important;
+                    border-color: rgba(255, 255, 255, 0.4) !important;
+                    color: white !important;
+                }
+                .dark-pagination .ant-btn:disabled {
+                    background: rgba(255, 255, 255, 0.05) !important;
+                    border-color: rgba(255, 255, 255, 0.1) !important;
+                    color: rgba(255, 255, 255, 0.3) !important;
+                }
+            `}</style>
+
+            {/* 页面标题 */}
+            <div style={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '12px',
+                marginBottom: '24px'
+            }}>
+                <div style={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    flexWrap: 'wrap',
+                    gap: '12px'
+                }}>
+                    <h1 style={{
+                        color: 'white',
+                        fontSize: 'clamp(20px, 5vw, 28px)',
+                        fontWeight: 'bold',
+                        margin: 0,
+                        textShadow: '2px 2px 4px rgba(0,0,0,0.8)'
+                    }}>
+                        <SkinOutlined style={{ marginRight: '12px' }} />
+                        穿搭管理
+                    </h1>
+                    <Space wrap size={8}>
+                        <Segmented
+                            value={viewMode}
+                            onChange={(value) => setViewMode(value as ViewMode)}
+                            options={[
+                                { label: '日历', value: 'calendar', icon: <CalendarOutlined /> },
+                                { label: '画廊', value: 'gallery', icon: <AppstoreOutlined /> }
+                            ]}
+                            className="dark-segmented"
+                        />
+                        <Button
+                            type="primary"
+                            icon={<PlusOutlined />}
+                            onClick={() => handleAddOutfit(dayjs())}
+                            style={{
+                                background: 'linear-gradient(135deg, #1890ff 0%, #722ed1 100%)',
+                                border: 'none',
+                                borderRadius: '10px',
+                                height: '40px',
+                                boxShadow: '0 4px 12px rgba(24, 144, 255, 0.3)'
+                            }}
+                        >
+                            <span className="hidden sm:inline">记录穿搭</span>
+                        </Button>
+                    </Space>
+                </div>
+            </div>
+
+            {/* 统计卡片 */}
+            <Row gutter={[16, 16]} style={{ marginBottom: '24px' }}>
+                <Col xs={12} sm={6}>
+                    <div style={statsCardStyle}>
+                        <Statistic
+                            title={<span style={{ color: 'rgba(255,255,255,0.7)' }}>总穿搭次数</span>}
+                            value={stats?.totalOutfits || 0}
+                            valueStyle={{ color: '#1890ff' }}
+                        />
+                    </div>
+                </Col>
+                <Col xs={12} sm={6}>
+                    <div style={statsCardStyle}>
+                        <Statistic
+                            title={<span style={{ color: 'rgba(255,255,255,0.7)' }}>本月穿搭</span>}
+                            value={stats?.thisMonthOutfits || 0}
+                            valueStyle={{ color: '#52c41a' }}
+                        />
+                    </div>
+                </Col>
+                <Col xs={12} sm={6}>
+                    <div style={statsCardStyle}>
+                        <Statistic
+                            title={<span style={{ color: 'rgba(255,255,255,0.7)' }}>使用单品数</span>}
+                            value={stats?.uniqueProductsUsed || 0}
+                            valueStyle={{ color: '#722ed1' }}
+                        />
+                    </div>
+                </Col>
+                <Col xs={12} sm={6}>
+                    <div style={statsCardStyle}>
+                        <Statistic
+                            title={<span style={{ color: 'rgba(255,255,255,0.7)' }}>平均单品/次</span>}
+                            value={stats?.avgItemsPerOutfit?.toFixed(1) || '0'}
+                            valueStyle={{ color: '#faad14' }}
+                        />
+                    </div>
+                </Col>
+            </Row>
+
+            {/* 主内容区 */}
+            {viewMode === 'calendar' ? (
+                <OutfitCalendar
+                    onDateSelect={handleDateSelect}
+                    onAddOutfit={handleAddOutfit}
+                />
+            ) : (
+                <Card style={glassCardStyle} styles={{ body: { padding: '24px' } }}>
+                    <Spin spinning={loading}>
+                        {outfits.length > 0 ? (
+                            <>
+                                <Row gutter={[16, 16]}>
+                                    {outfits.map(outfit => (
+                                        <Col key={outfit.id} xs={24} sm={12} md={8} lg={6}>
+                                            <OutfitCard
+                                                outfit={outfit}
+                                                onView={handleViewOutfit}
+                                                onDelete={handleDeleteOutfit}
+                                            />
+                                        </Col>
+                                    ))}
+                                </Row>
+                                {/* 分页 */}
+                                {total > pageSize && (
+                                    <div className="dark-pagination" style={{ textAlign: 'center', marginTop: '24px' }}>
+                                        <Button
+                                            disabled={currentPage === 1}
+                                            onClick={() => setCurrentPage(p => p - 1)}
+                                            style={{ marginRight: '8px' }}
+                                        >
+                                            上一页
+                                        </Button>
+                                        <span style={{ color: 'rgba(255,255,255,0.8)', margin: '0 16px' }}>
+                                            第 {currentPage} 页 / 共 {Math.ceil(total / pageSize)} 页
+                                        </span>
+                                        <Button
+                                            disabled={currentPage >= Math.ceil(total / pageSize)}
+                                            onClick={() => setCurrentPage(p => p + 1)}
+                                        >
+                                            下一页
+                                        </Button>
+                                    </div>
+                                )}
+                            </>
+                        ) : (
+                            <Empty
+                                image={Empty.PRESENTED_IMAGE_SIMPLE}
+                                description={
+                                    <span style={{ color: 'rgba(255,255,255,0.6)' }}>
+                                        暂无穿搭记录，快去记录你的第一套穿搭吧！
+                                    </span>
+                                }
+                            >
+                                <Button
+                                    type="primary"
+                                    icon={<PlusOutlined />}
+                                    onClick={() => handleAddOutfit(dayjs())}
+                                    style={{
+                                        background: 'linear-gradient(135deg, #1890ff 0%, #722ed1 100%)',
+                                        border: 'none'
+                                    }}
+                                >
+                                    记录穿搭
+                                </Button>
+                            </Empty>
+                        )}
+                    </Spin>
+                </Card>
+            )}
+
+            {/* 创建穿搭弹窗 */}
+            <OutfitCreateModal
+                visible={createModalVisible}
+                initialDate={selectedDate}
+                onClose={() => setCreateModalVisible(false)}
+                onSuccess={handleCreateSuccess}
+            />
+
+            {/* 穿搭详情弹窗 */}
+            <Modal
+                title={`穿搭详情 - ${selectedOutfit ? dayjs(selectedOutfit.outfitDate).format('YYYY-MM-DD HH:mm') : ''}`}
+                open={detailModalVisible}
+                onCancel={() => setDetailModalVisible(false)}
+                className="detail-modal"
+                footer={[
+                    <Button
+                        key="delete"
+                        danger
+                        icon={<DeleteOutlined />}
+                        onClick={() => {
+                            if (selectedOutfit) {
+                                handleDeleteOutfit(selectedOutfit);
+                                setDetailModalVisible(false);
+                            }
+                        }}
+                    >
+                        删除
+                    </Button>,
+                    <Button key="close" onClick={() => setDetailModalVisible(false)}>
+                        关闭
+                    </Button>
+                ]}
+                width={600}
+                styles={detailModalStyles}
+            >
+                {selectedOutfit && (
+                    <div>
+                        {/* 穿搭图片 */}
+                        {selectedOutfit.outfitImage && (
+                            <div style={{ marginBottom: '16px', textAlign: 'center' }}>
+                                <img
+                                    src={selectedOutfit.outfitImage}
+                                    alt="穿搭实拍"
+                                    style={{
+                                        maxWidth: '100%',
+                                        maxHeight: '300px',
+                                        borderRadius: '12px',
+                                        objectFit: 'cover',
+                                        border: '1px solid rgba(255, 255, 255, 0.2)'
+                                    }}
+                                />
+                            </div>
+                        )}
+
+                        {/* 单品列表 */}
+                        <div style={{ marginBottom: '16px' }}>
+                            <h4 style={{ color: 'white', marginBottom: '12px' }}>穿搭单品 ({selectedOutfit.items.length})</h4>
+                            <Row gutter={[8, 8]}>
+                                {selectedOutfit.items.map((item, index) => (
+                                    <Col key={index} span={8}>
+                                        <div style={{
+                                            background: 'rgba(255,255,255,0.08)',
+                                            borderRadius: '10px',
+                                            padding: '10px',
+                                            textAlign: 'center',
+                                            border: '1px solid rgba(255, 255, 255, 0.1)',
+                                            backdropFilter: 'blur(8px)'
+                                        }}>
+                                            <img
+                                                src={item.productMainImage}
+                                                alt={item.productName}
+                                                style={{
+                                                    width: '100%',
+                                                    height: '80px',
+                                                    objectFit: 'cover',
+                                                    borderRadius: '6px',
+                                                    marginBottom: '8px'
+                                                }}
+                                            />
+                                            <div style={{
+                                                color: 'rgba(255, 255, 255, 0.9)',
+                                                fontSize: '12px',
+                                                overflow: 'hidden',
+                                                textOverflow: 'ellipsis',
+                                                whiteSpace: 'nowrap'
+                                            }}>
+                                                {item.productName}
+                                            </div>
+                                            <div style={{
+                                                color: item.itemType === 'MAIN' ? '#69c0ff' : '#b37feb',
+                                                fontSize: '10px',
+                                                marginTop: '4px',
+                                                fontWeight: 500
+                                            }}>
+                                                {item.itemType === 'MAIN' ? '主要单品' : '配饰'}
+                                            </div>
+                                        </div>
+                                    </Col>
+                                ))}
+                            </Row>
+                        </div>
+
+                        {/* 备注 */}
+                        {selectedOutfit.note && (
+                            <div style={{
+                                background: 'rgba(255, 255, 255, 0.05)',
+                                borderRadius: '10px',
+                                padding: '16px',
+                                border: '1px solid rgba(255, 255, 255, 0.1)'
+                            }}>
+                                <h4 style={{ color: 'white', marginBottom: '8px' }}>备注</h4>
+                                <p style={{ color: 'rgba(255,255,255,0.8)', margin: 0 }}>
+                                    {selectedOutfit.note}
+                                </p>
+                            </div>
+                        )}
+                    </div>
+                )}
+            </Modal>
+        </div>
+    );
+};
+
+export default OutfitManagement;

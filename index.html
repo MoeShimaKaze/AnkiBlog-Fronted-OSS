@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, minimum-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+  <!-- 基础信息 -->
+  <title>AnkiBlog - 个人博客</title>
+  <meta name="description" content="一个现代化的个人博客系统，集内容创作、商品推荐于一体。分享技术文章、生活感悟和精选商品推荐。" />
+  <meta name="keywords" content="个人博客,技术分享,商品推荐,内容创作,AnkiBlog" />
+  <meta name="author" content="AnkiBlog" />
+  <meta name="robots" content="index,follow" />
+
+  <!-- PWA 配置 -->
+  <link rel="manifest" href="/manifest.json" />
+  <meta name="theme-color" content="#3b82f6" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="AnkiBlog" />
+  <meta name="msapplication-TileColor" content="#3b82f6" />
+  <meta name="msapplication-config" content="/browserconfig.xml" />
+
+  <!-- 图标 -->
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#3b82f6" />
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://ankiblog.com/" />
+  <meta property="og:title" content="AnkiBlog - 个人博客" />
+  <meta property="og:description" content="一个现代化的个人博客系统，集内容创作、商品推荐于一体" />
+  <meta property="og:image" content="/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:site_name" content="AnkiBlog" />
+  <meta property="og:locale" content="zh_CN" />
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image" />
+  <meta property="twitter:url" content="https://ankiblog.com/" />
+  <meta property="twitter:title" content="AnkiBlog - 个人博客" />
+  <meta property="twitter:description" content="一个现代化的个人博客系统，集内容创作、商品推荐于一体" />
+  <meta property="twitter:image" content="/twitter-image.png" />
+
+  <!-- DNS 预解析和预连接 -->
+  <link rel="dns-prefetch" href="//fonts.googleapis.com" />
+  <link rel="dns-prefetch" href="//cdn.jsdelivr.net" />
+  <link rel="preconnect" href="//fonts.gstatic.com" crossorigin />
+
+  <!-- 字体预加载 -->
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+  <noscript>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" />
+  </noscript>
+
+  <!-- 主题色彩适配 -->
+  <meta name="color-scheme" content="light dark" />
+
+  <!-- 安全性 -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data: https:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; script-src 'self' 'unsafe-inline' 'unsafe-eval'; connect-src 'self'" />
+  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+  <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
+
+  <!-- 性能优化 -->
+  <link rel="prefetch" href="/public/articles" />
+  <link rel="prefetch" href="/public/products" />
+
+  <!-- 初始化样式和主题 -->
+  <style>
+    /* 防止闪烁的基础样式 */
+    html {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      background-color: #ffffff;
+      color: #1f2937;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    /* 深色主题 */
+    [data-theme="dark"] body {
+      background-color: #111827;
+      color: #f9fafb;
+    }
+
+    /* 加载动画 */
+    .loading-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url('/background_placeholder.png');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      transition: opacity 0.5s ease;
+    }
+
+    .loading-container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(102, 126, 234, 0.4);
+      backdrop-filter: blur(1px);
+      -webkit-backdrop-filter: blur(1px);
+    }
+
+    .loading-content {
+      position: relative;
+      z-index: 10;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 20px;
+      padding: 3rem 4rem;
+      text-align: center;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    }
+
+    .loading-logo {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto 20px;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 24px;
+      font-weight: 700;
+      animation: pulse 2s infinite;
+    }
+
+    .loading-text {
+      color: white;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
+      font-size: 16px;
+      font-weight: 500;
+      margin-top: 8px;
+    }
+
+    .loading-spinner {
+      width: 32px;
+      height: 32px;
+      border: 3px solid rgba(255,255,255,0.3);
+      border-top: 3px solid white;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 16px;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+
+    /* 隐藏加载器 */
+    .loading-container.fade-out {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    /* 应用容器 */
+    #root {
+      min-height: 100vh;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+
+    #root.loaded {
+      opacity: 1;
+    }
+
+    /* 错误边界样式 */
+    .error-boundary {
+      padding: 40px 20px;
+      text-align: center;
+      min-height: 400px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .error-icon {
+      font-size: 48px;
+      color: #ef4444;
+      margin-bottom: 16px;
+    }
+
+    .error-title {
+      font-size: 24px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: #1f2937;
+    }
+
+    [data-theme="dark"] .error-title {
+      color: #f9fafb;
+    }
+
+    .error-message {
+      color: #6b7280;
+      margin-bottom: 20px;
+    }
+
+    [data-theme="dark"] .error-message {
+      color: #9ca3af;
+    }
+
+    /* 响应式优化 */
+    @media (max-width: 768px) {
+      .loading-logo {
+        width: 64px;
+        height: 64px;
+        font-size: 20px;
+      }
+
+      .loading-content {
+        padding: 2rem 3rem;
+      }
+    }
+
+    /* 滚动条样式 */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #f1f5f9;
+    }
+
+    [data-theme="dark"] ::-webkit-scrollbar-track {
+      background: #1e293b;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 4px;
+    }
+
+    [data-theme="dark"] ::-webkit-scrollbar-thumb {
+      background: #475569;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: #94a3b8;
+    }
+
+    [data-theme="dark"] ::-webkit-scrollbar-thumb:hover {
+      background: #64748b;
+    }
+  </style>
+
+  <!-- 主题初始化脚本 -->
+  <script>
+    (function() {
+      // 从localStorage获取主题设置
+      const savedTheme = localStorage.getItem('theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const theme = savedTheme || (prefersDark ? 'dark' : 'light');
+
+      // 立即应用主题，防止闪烁
+      document.documentElement.setAttribute('data-theme', theme);
+
+      // 设置主题色
+      const metaThemeColor = document.querySelector('meta[name="theme-color"]');
+      if (theme === 'dark') {
+        metaThemeColor.content = '#111827';
+      } else {
+        metaThemeColor.content = '#3b82f6';
+      }
+    })();
+  </script>
+</head>
+
+<body>
+<!-- 加载动画 -->
+<div id="loading" class="loading-container">
+  <div class="loading-content">
+    <div class="loading-logo">AB</div>
+    <div class="loading-spinner"></div>
+    <div class="loading-text">正在加载应用...</div>
+  </div>
+</div>
+
+<!-- React 应用挂载点 -->
+<div id="root"></div>
+
+<!-- 无 JavaScript 环境的后备内容 -->
+<noscript>
+  <div class="error-boundary">
+    <div class="error-icon">⚠️</div>
+    <h1 class="error-title">需要启用 JavaScript</h1>
+    <p class="error-message">
+      请启用 JavaScript 以获得完整的网站体验。<br>
+      AnkiBlog 需要 JavaScript 来提供最佳的用户体验。
+    </p>
+  </div>
+</noscript>
+
+<!-- 应用加载完成后的处理脚本 -->
+<script>
+  // 页面加载完成后隐藏加载动画
+  document.addEventListener('DOMContentLoaded', function() {
+    // 确保React应用加载完成
+    const checkReactApp = setInterval(function() {
+      const root = document.getElementById('root');
+
+      if (root && root.children.length > 0) {
+        clearInterval(checkReactApp);
+
+        setTimeout(function() {
+          const loading = document.getElementById('loading');
+
+          if (loading) {
+            loading.classList.add('fade-out');
+            root.classList.add('loaded');
+
+            // 动画完成后移除加载元素
+            setTimeout(function() {
+              if (loading.parentNode) {
+                loading.remove();
+              }
+            }, 500);
+          }
+        }, 500);
+      }
+    }, 100);
+
+    // 超时保护，10秒后强制隐藏加载
+    setTimeout(function() {
+      clearInterval(checkReactApp);
+      const loading = document.getElementById('loading');
+      const root = document.getElementById('root');
+
+      if (loading) {
+        loading.classList.add('fade-out');
+        setTimeout(() => loading.remove(), 500);
+      }
+      if (root) {
+        root.classList.add('loaded');
+      }
+    }, 10000);
+  });
+
+  // 优化的错误处理
+  window.addEventListener('error', function(e) {
+    const ignoredErrors = [
+      'Loading chunk',
+      'Loading CSS chunk',
+      'ChunkLoadError',
+      'Failed to fetch dynamically imported module',
+      'Script error',
+      'Network request failed',
+      'ResizeObserver loop limit exceeded'
+    ];
+
+    const shouldIgnore = ignoredErrors.some(ignoredError =>
+            e.message?.includes(ignoredError) ||
+            e.error?.message?.includes(ignoredError)
+    );
+
+    if (shouldIgnore) {
+      console.warn('[Global] 忽略的错误 (通常是懒加载问题):', e.error || e.message);
+      return;
+    }
+
+    console.error('[Global] 应用错误:', e.error || e.message);
+  });
+
+  // Promise 拒绝处理
+  window.addEventListener('unhandledrejection', function(e) {
+    const ignoredRejections = [
+      'Loading chunk',
+      'Failed to fetch dynamically imported module',
+      'ChunkLoadError'
+    ];
+
+    const shouldIgnore = ignoredRejections.some(ignored =>
+            e.reason?.message?.includes(ignored) ||
+            String(e.reason).includes(ignored)
+    );
+
+    if (shouldIgnore) {
+      console.warn('[Global] 忽略的Promise拒绝 (懒加载问题):', e.reason);
+      e.preventDefault();
+      return;
+    }
+
+    console.error('[Global] 未处理的Promise拒绝:', e.reason);
+  });
+
+  // 主题切换监听
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) {
+    const savedTheme = localStorage.getItem('theme');
+    if (!savedTheme) {
+      const theme = e.matches ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-theme', theme);
+
+      const metaThemeColor = document.querySelector('meta[name="theme-color"]');
+      if (metaThemeColor) {
+        metaThemeColor.content = theme === 'dark' ? '#111827' : '#3b82f6';
+      }
+    }
+  });
+</script>
+
+<!-- 模块化脚本入口 -->
+<script type="module" src="/src/main.tsx"></script>
+</body>
+</html>

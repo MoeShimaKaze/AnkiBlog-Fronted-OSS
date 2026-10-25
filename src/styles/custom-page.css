@@ -1,0 +1,272 @@
+/* 追加以下代码 */
+@layer components {
+    /* --- @uiw/react-md-editor 玻璃拟态主题 for Tailwind --- */
+
+    /* * 我们为编辑器根元素添加 .glass-editor 类名
+     * 并确保它在暗黑模式下（data-color-mode="dark"）生效
+     */
+    .glass-editor[data-color-mode="dark"] {
+        @apply border border-white/20 bg-slate-900/40 rounded-xl shadow-lg;
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+    }
+
+    /* 工具栏 */
+    .glass-editor[data-color-mode="dark"] .w-md-editor-toolbar {
+        @apply bg-white/10 border-b border-white/20;
+    }
+
+    /* 工具栏按钮 */
+    .glass-editor[data-color-mode="dark"] .w-md-editor-toolbar li button {
+        @apply text-slate-300;
+    }
+
+    /* 工具栏按钮悬停/激活状态 */
+    .glass-editor[data-color-mode="dark"] .w-md-editor-toolbar li.active button,
+    .glass-editor[data-color-mode="dark"] .w-md-editor-toolbar li button:hover {
+        @apply bg-white/20 text-white;
+    }
+
+    /* 编辑区和预览区的分割线 */
+    .glass-editor[data-color-mode="dark"] .w-md-editor-splitter {
+        @apply bg-white/20;
+    }
+
+    /* 预览区、输入区、以及所有文本颜色 */
+    .glass-editor[data-color-mode="dark"],
+    .glass-editor[data-color-mode="dark"] .wmde-markdown-color,
+    .glass-editor[data-color-mode="dark"] .w-md-editor-text-input {
+        @apply text-slate-200;
+    }
+
+    /* 将预览区和输入区的背景设为透明，以透出玻璃背景 */
+    .glass-editor[data-color-mode="dark"] .w-md-editor-preview,
+    .glass-editor[data-color-mode="dark"] .w-md-editor-text-input {
+        @apply bg-transparent;
+    }
+
+    /* 滚动条样式 (可选) */
+    .glass-editor[data-color-mode="dark"] ::-webkit-scrollbar {
+        @apply w-2;
+    }
+    .glass-editor[data-color-mode="dark"] ::-webkit-scrollbar-track {
+        @apply bg-white/10 rounded;
+    }
+    .glass-editor[data-color-mode="dark"] ::-webkit-scrollbar-thumb {
+        @apply bg-white/30 rounded;
+    }
+    .glass-editor[data-color-mode="dark"] ::-webkit-scrollbar-thumb:hover {
+        @apply bg-white/50;
+    }
+}
+
+/* 自定义页面内容样式 */
+.custom-page-content {
+    @apply text-white/95 leading-7 text-base;
+}
+
+.custom-page-title-meta {
+    @apply text-sm text-white/70;
+}
+
+.custom-page-standalone-content {
+    @apply mb-6 flex justify-center overflow-x-auto;
+}
+
+.custom-page-content--standalone {
+    @apply w-full;
+}
+
+.custom-page-content--standalone > :first-child {
+    margin-top: 0 !important;
+}
+
+.custom-page-content--standalone > :last-child {
+    margin-bottom: 0 !important;
+}
+
+.custom-page-content h1,
+.custom-page-content h2,
+.custom-page-content h3,
+.custom-page-content h4,
+.custom-page-content h5,
+.custom-page-content h6 {
+    @apply text-white/95 font-semibold;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+    margin: 1.5em 0 1em 0;
+}
+
+.custom-page-content h1 { @apply text-4xl; }
+.custom-page-content h2 { @apply text-3xl; }
+.custom-page-content h3 { @apply text-2xl; }
+.custom-page-content h4 { @apply text-xl; }
+.custom-page-content h5 { @apply text-lg; }
+.custom-page-content h6 { @apply text-base; }
+
+.custom-page-content p {
+    @apply my-4 text-justify;
+}
+
+.custom-page-content a {
+    @apply text-blue-300 no-underline border-b border-transparent transition-all duration-300;
+}
+
+.custom-page-content a:hover {
+    @apply text-blue-200 border-blue-200;
+}
+
+.custom-page-content img {
+    @apply max-w-full h-auto rounded-lg shadow-lg my-4;
+}
+
+.custom-page-content blockquote {
+    @apply border-l-4 border-blue-500 pl-6 py-4 my-6 bg-blue-500/10 rounded-r-lg italic;
+}
+
+.custom-page-content code {
+    @apply bg-black/30 px-2 py-1 rounded text-sm text-yellow-200;
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+}
+
+.custom-page-content pre {
+    @apply bg-black/50 p-6 rounded-lg overflow-x-auto my-6 border border-white/10;
+}
+
+.custom-page-content pre code {
+    @apply bg-transparent p-0 rounded-none;
+}
+
+.custom-page-content ul,
+.custom-page-content ol {
+    @apply pl-8 my-4;
+}
+
+.custom-page-content li {
+    @apply my-2;
+}
+
+.custom-page-content table {
+    @apply w-full border-collapse my-6 bg-white/5 rounded-lg overflow-hidden;
+}
+
+.custom-page-content th,
+.custom-page-content td {
+    @apply px-4 py-3 text-left border-b border-white/10;
+}
+
+.custom-page-content th {
+    @apply bg-white/10 font-semibold text-white/95;
+}
+
+.custom-page-content hr {
+    @apply border-none h-px bg-gradient-to-r from-transparent via-white/30 to-transparent my-8;
+}
+
+/* 自定义页面管理表格样式 */
+.custom-page-table .ant-table-thead > tr > th {
+    @apply bg-white/10 text-white border-white/20;
+}
+
+.custom-page-table .ant-table-tbody > tr > td {
+    @apply bg-transparent border-white/10 text-white/85;
+}
+
+.custom-page-table .ant-table-tbody > tr:hover > td {
+    @apply bg-white/5;
+}
+
+/* 自定义页面编辑器样式 */
+.custom-page-editor .ant-tabs-tab {
+    @apply text-white/75;
+}
+
+.custom-page-editor .ant-tabs-tab-active {
+    @apply text-white;
+}
+
+.custom-page-editor .ant-tabs-ink-bar {
+    background: #667eea !important;
+}
+
+/* 自定义表单样式 */
+.custom-page-form .ant-form-item-label > label {
+    @apply text-white/95;
+}
+
+.custom-page-form .ant-input,
+.custom-page-form .ant-select-selector,
+.custom-page-form .ant-input-number,
+.custom-page-form .ant-input-affix-wrapper {
+    @apply bg-white/10 border-white/20 text-white;
+}
+
+.custom-page-form .ant-input:focus,
+.custom-page-form .ant-select-focused .ant-select-selector,
+.custom-page-form .ant-input-number:focus,
+.custom-page-form .ant-input-affix-wrapper:focus {
+    @apply border-blue-500 shadow-lg;
+    box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.2);
+}
+
+.custom-page-form .ant-input::placeholder {
+    @apply text-white/50;
+}
+
+.custom-page-form .ant-select-selection-placeholder {
+    @apply text-white/50;
+}
+
+/* 分页组件样式 */
+.custom-pagination .ant-pagination-item {
+    @apply bg-white/10 border-white/20;
+}
+
+.custom-pagination .ant-pagination-item a {
+    @apply text-white;
+}
+
+.custom-pagination .ant-pagination-item-active {
+    @apply bg-blue-500 border-blue-500;
+}
+
+.custom-pagination .ant-pagination-prev .ant-pagination-item-link,
+.custom-pagination .ant-pagination-next .ant-pagination-item-link {
+    @apply bg-white/10 border-white/20 text-white;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .custom-page-content {
+        @apply text-sm px-4;
+    }
+
+    .custom-page-title-meta {
+        @apply text-xs;
+    }
+
+    .custom-page-standalone-content {
+        @apply -mx-4 px-4;
+    }
+
+    .custom-page-content h1 { @apply text-3xl; }
+    .custom-page-content h2 { @apply text-2xl; }
+    .custom-page-content h3 { @apply text-xl; }
+}
+
+/* 自定义滚动条 */
+.custom-page-content::-webkit-scrollbar {
+    @apply w-1.5;
+}
+
+.custom-page-content::-webkit-scrollbar-track {
+    @apply bg-white/10 rounded;
+}
+
+.custom-page-content::-webkit-scrollbar-thumb {
+    @apply bg-white/30 rounded;
+}
+
+.custom-page-content::-webkit-scrollbar-thumb:hover {
+    @apply bg-white/50;
+}
+

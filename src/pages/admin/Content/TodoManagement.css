@@ -1,0 +1,740 @@
+/**
+ * 待办清单管理页面样式 - 暗色玻璃拟态风格
+ */
+
+.todo-management {
+    height: calc(100vh - 200px);
+    background: transparent;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.todo-sidebar-container {
+    background: rgba(0, 0, 0, 0.3) !important;
+    backdrop-filter: blur(15px) !important;
+    -webkit-backdrop-filter: blur(15px) !important;
+    border-right: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+.todo-sidebar-container .ant-layout-sider-children {
+    background: transparent !important;
+}
+
+.todo-content {
+    background: transparent;
+    padding: 0;
+    overflow: hidden;
+}
+
+.todo-detail-container {
+    background: rgba(0, 0, 0, 0.35) !important;
+    backdrop-filter: blur(15px) !important;
+    -webkit-backdrop-filter: blur(15px) !important;
+    border-left: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+.todo-detail-container .ant-layout-sider-children {
+    background: transparent !important;
+}
+
+/* 侧边栏样式 */
+.todo-sidebar {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 16px 0;
+    background: transparent;
+}
+
+.todo-sidebar-header {
+    padding: 0 16px 16px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.todo-sidebar-menu {
+    flex: 1;
+    overflow-y: auto;
+    padding: 8px 0;
+}
+
+.todo-sidebar-item {
+    display: flex;
+    align-items: center;
+    padding: 10px 16px;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin: 2px 8px;
+    border-radius: 8px;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.todo-sidebar-item:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.todo-sidebar-item.active {
+    background: rgba(59, 130, 246, 0.3);
+    color: #60a5fa;
+    border: 1px solid rgba(59, 130, 246, 0.4);
+}
+
+.todo-sidebar-item-icon {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    margin-right: 12px;
+    font-size: 16px;
+}
+
+.todo-sidebar-item-content {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.todo-sidebar-item-name {
+    font-size: 14px;
+    font-weight: 500;
+    color: inherit;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.todo-sidebar-item-count {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.7);
+    background: rgba(255, 255, 255, 0.15);
+    padding: 2px 8px;
+    border-radius: 10px;
+}
+
+.todo-sidebar-divider {
+    height: 1px;
+    background: rgba(255, 255, 255, 0.1);
+    margin: 8px 16px;
+}
+
+.todo-sidebar-section-title {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.6);
+    padding: 8px 16px;
+    text-transform: uppercase;
+}
+
+.todo-sidebar-footer {
+    padding: 16px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.todo-sidebar-footer .ant-btn {
+    background: rgba(255, 255, 255, 0.1) !important;
+    border: 1px dashed rgba(255, 255, 255, 0.3) !important;
+    color: rgba(255, 255, 255, 0.8) !important;
+}
+
+.todo-sidebar-footer .ant-btn:hover {
+    background: rgba(255, 255, 255, 0.15) !important;
+    border-color: rgba(255, 255, 255, 0.5) !important;
+    color: white !important;
+}
+
+/* 待办项列表样式 */
+.todo-item-list {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    background: rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+}
+
+.todo-item-list-header {
+    padding: 24px 24px 16px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.todo-item-list-title {
+    font-size: 28px;
+    font-weight: 600;
+    margin: 0;
+    color: #60a5fa;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.todo-item-list-date {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.6);
+    margin-top: 4px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.todo-item-list-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 8px 16px;
+}
+
+.todo-item-list-input {
+    padding: 16px 24px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.todo-add-input {
+    border-radius: 8px;
+    padding: 12px 16px;
+    font-size: 14px;
+    background: rgba(255, 255, 255, 0.1) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    color: white !important;
+}
+
+.todo-add-input::placeholder {
+    color: rgba(255, 255, 255, 0.5) !important;
+}
+
+.todo-add-input .ant-input {
+    background: transparent !important;
+    color: white !important;
+}
+
+.todo-add-input .ant-input::placeholder {
+    color: rgba(255, 255, 255, 0.5) !important;
+}
+
+.todo-add-input .ant-input-prefix {
+    margin-right: 12px;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+/* 待办项卡片样式 */
+.todo-item-card {
+    display: flex;
+    align-items: flex-start;
+    padding: 12px 16px;
+    margin: 4px 0;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.todo-item-card:hover {
+    background: rgba(255, 255, 255, 0.12);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.todo-item-card.selected {
+    border-color: #3b82f6;
+    background: rgba(59, 130, 246, 0.15);
+}
+
+.todo-item-card.completed {
+    opacity: 0.6;
+}
+
+.todo-item-card.completed .todo-item-title {
+    text-decoration: line-through;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.todo-item-checkbox {
+    margin-right: 12px;
+    margin-top: 2px;
+}
+
+.todo-item-checkbox .ant-checkbox-inner {
+    background: rgba(255, 255, 255, 0.1) !important;
+    border-color: rgba(255, 255, 255, 0.4) !important;
+}
+
+.todo-item-checkbox .ant-checkbox-checked .ant-checkbox-inner {
+    background: #3b82f6 !important;
+    border-color: #3b82f6 !important;
+}
+
+.todo-item-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.todo-item-title {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.95);
+    margin-bottom: 4px;
+    word-break: break-word;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.todo-item-meta {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.todo-item-meta-item {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.todo-item-meta-item.overdue {
+    color: #f87171;
+}
+
+.todo-item-actions {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.todo-item-card:hover .todo-item-actions {
+    opacity: 1;
+}
+
+.todo-item-actions .ant-btn {
+    color: rgba(255, 255, 255, 0.7) !important;
+}
+
+.todo-item-actions .ant-btn:hover {
+    color: white !important;
+    background: rgba(255, 255, 255, 0.1) !important;
+}
+
+.todo-item-important {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.todo-item-important.active {
+    color: #f472b6 !important;
+}
+
+/* 详情面板样式 */
+.todo-detail-panel {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    background: transparent;
+}
+
+.todo-detail-header {
+    padding: 16px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.todo-detail-header .ant-btn {
+    color: rgba(255, 255, 255, 0.7) !important;
+}
+
+.todo-detail-header .ant-btn:hover {
+    color: white !important;
+    background: rgba(255, 255, 255, 0.1) !important;
+}
+
+.todo-detail-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 16px;
+}
+
+.todo-detail-section {
+    margin-bottom: 24px;
+}
+
+.todo-detail-section-title {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.5);
+    margin-bottom: 8px;
+    text-transform: uppercase;
+}
+
+.todo-detail-title-input {
+    font-size: 18px;
+    font-weight: 500;
+    border: none;
+    padding: 8px 12px;
+    background: rgba(255, 255, 255, 0.1) !important;
+    border-radius: 6px;
+    color: white !important;
+}
+
+.todo-detail-title-input:focus {
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3) !important;
+    border-color: rgba(59, 130, 246, 0.5) !important;
+}
+
+.todo-detail-title-input .ant-input {
+    background: transparent !important;
+    color: white !important;
+}
+
+.todo-detail-footer {
+    padding: 16px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+/* 步骤列表样式 */
+.todo-step-list {
+    margin-top: 8px;
+}
+
+.todo-step-item {
+    display: flex;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.todo-step-item:last-child {
+    border-bottom: none;
+}
+
+.todo-step-checkbox {
+    margin-right: 8px;
+}
+
+.todo-step-title {
+    flex: 1;
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.todo-step-title.completed {
+    text-decoration: line-through;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.todo-step-add {
+    display: flex;
+    align-items: center;
+    padding: 8px 0;
+    color: #60a5fa;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+.todo-step-add:hover {
+    color: #93c5fd;
+}
+
+/* 空状态 */
+.todo-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 300px;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.todo-empty-icon {
+    font-size: 64px;
+    margin-bottom: 16px;
+    opacity: 0.5;
+    color: rgba(255, 255, 255, 0.4);
+}
+
+.todo-empty-text {
+    font-size: 14px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+/* 按钮样式覆盖 */
+.todo-sidebar .ant-btn-text {
+    color: rgba(255, 255, 255, 0.6) !important;
+}
+
+.todo-sidebar .ant-btn-text:hover {
+    color: white !important;
+    background: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Popconfirm样式 */
+.ant-popover {
+    --antd-arrow-background-color: rgba(30, 30, 30, 0.95);
+}
+
+.ant-popconfirm .ant-popover-inner {
+    background: rgba(30, 30, 30, 0.95) !important;
+    backdrop-filter: blur(20px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+.ant-popconfirm .ant-popover-message-title,
+.ant-popconfirm .ant-popconfirm-title,
+.ant-popconfirm .ant-popconfirm-description {
+    color: rgba(255, 255, 255, 0.9) !important;
+}
+
+/* Modal样式 */
+.todo-sidebar .ant-modal-content {
+    background: rgba(30, 30, 30, 0.95) !important;
+    backdrop-filter: blur(20px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+.todo-sidebar .ant-modal-header {
+    background: transparent !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+.todo-sidebar .ant-modal-title {
+    color: white !important;
+}
+
+.todo-sidebar .ant-modal-close {
+    color: rgba(255, 255, 255, 0.6) !important;
+}
+
+.todo-sidebar .ant-input {
+    background: rgba(255, 255, 255, 0.1) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    color: white !important;
+}
+
+.todo-sidebar .ant-input:focus {
+    border-color: #3b82f6 !important;
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2) !important;
+}
+
+/* 响应式 */
+@media (max-width: 768px) {
+    .todo-management {
+        height: calc(100vh - 120px);
+        position: relative;
+    }
+
+    .todo-sidebar-container {
+        display: none;
+    }
+
+    .todo-detail-container {
+        display: none;
+    }
+
+    .todo-item-list {
+        padding-top: 48px;
+    }
+
+    .todo-item-list-header {
+        padding: 16px 16px 12px;
+    }
+
+    .todo-item-list-title {
+        font-size: 22px;
+    }
+
+    .todo-item-list-input {
+        padding: 12px 16px;
+    }
+
+    .todo-item-card {
+        padding: 10px 12px;
+    }
+
+    .todo-item-list-content {
+        padding: 6px 12px;
+    }
+}
+
+/* 滚动条样式 */
+.todo-item-list-content::-webkit-scrollbar,
+.todo-sidebar-menu::-webkit-scrollbar,
+.todo-detail-content::-webkit-scrollbar {
+    width: 6px;
+}
+
+.todo-item-list-content::-webkit-scrollbar-track,
+.todo-sidebar-menu::-webkit-scrollbar-track,
+.todo-detail-content::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 3px;
+}
+
+.todo-item-list-content::-webkit-scrollbar-thumb,
+.todo-sidebar-menu::-webkit-scrollbar-thumb,
+.todo-detail-content::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 3px;
+}
+
+.todo-item-list-content::-webkit-scrollbar-thumb:hover,
+.todo-sidebar-menu::-webkit-scrollbar-thumb:hover,
+.todo-detail-content::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+/* DatePicker样式覆盖 */
+.todo-detail-panel .ant-picker {
+    background: rgba(255, 255, 255, 0.1) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+}
+
+.todo-detail-panel .ant-picker-input > input {
+    color: white !important;
+}
+
+.todo-detail-panel .ant-picker-suffix,
+.todo-detail-panel .ant-picker-clear {
+    color: rgba(255, 255, 255, 0.5) !important;
+}
+
+/* TextArea样式覆盖 */
+.todo-detail-panel .ant-input {
+    background: rgba(255, 255, 255, 0.1) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    color: white !important;
+}
+
+.todo-detail-panel .ant-input::placeholder {
+    color: rgba(255, 255, 255, 0.4) !important;
+}
+
+.todo-detail-panel .ant-input:focus {
+    border-color: #3b82f6 !important;
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2) !important;
+}
+
+/* 移动端菜单按钮 */
+.todo-mobile-menu-btn {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    z-index: 10;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.15) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    border-radius: 8px !important;
+    color: white !important;
+    font-size: 18px;
+    backdrop-filter: blur(10px);
+}
+
+.todo-mobile-menu-btn:hover {
+    background: rgba(255, 255, 255, 0.25) !important;
+}
+
+/* 移动端抽屉样式 */
+.todo-mobile-drawer .ant-drawer-body {
+    padding: 0 !important;
+}
+
+.todo-mobile-drawer .todo-sidebar {
+    height: 100%;
+}
+
+.todo-detail-drawer .todo-detail-panel {
+    height: 100%;
+}
+
+/* Select下拉框样式 */
+.todo-detail-panel .ant-select-selector {
+    background: rgba(255, 255, 255, 0.1) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    color: white !important;
+}
+
+.todo-detail-panel .ant-select-arrow {
+    color: rgba(255, 255, 255, 0.5) !important;
+}
+
+.todo-detail-panel .ant-select-selection-item {
+    color: white !important;
+}
+
+/* Select下拉面板样式 */
+.ant-select-dropdown {
+    background: rgba(30, 30, 30, 0.95) !important;
+    backdrop-filter: blur(20px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+.ant-select-item {
+    color: rgba(255, 255, 255, 0.9) !important;
+}
+
+.ant-select-item:hover {
+    background: rgba(255, 255, 255, 0.1) !important;
+}
+
+.ant-select-item-option-selected {
+    background: rgba(59, 130, 246, 0.3) !important;
+}
+
+/* DatePicker弹窗样式 */
+.ant-picker-dropdown {
+    background: transparent !important;
+}
+
+.ant-picker-panel-container {
+    background: rgba(30, 30, 30, 0.95) !important;
+    backdrop-filter: blur(20px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 8px !important;
+}
+
+.ant-picker-header {
+    color: white !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+.ant-picker-header button {
+    color: rgba(255, 255, 255, 0.7) !important;
+}
+
+.ant-picker-header button:hover {
+    color: white !important;
+}
+
+.ant-picker-content th {
+    color: rgba(255, 255, 255, 0.6) !important;
+}
+
+.ant-picker-cell {
+    color: rgba(255, 255, 255, 0.9) !important;
+}
+
+.ant-picker-cell:hover .ant-picker-cell-inner {
+    background: rgba(255, 255, 255, 0.1) !important;
+}
+
+.ant-picker-cell-selected .ant-picker-cell-inner {
+    background: #3b82f6 !important;
+}
+
+.ant-picker-cell-today .ant-picker-cell-inner::before {
+    border-color: #3b82f6 !important;
+}
+
+.ant-picker-cell-disabled {
+    color: rgba(255, 255, 255, 0.3) !important;
+}
+
+.ant-picker-footer {
+    border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+.ant-picker-today-btn {
+    color: #60a5fa !important;
+}

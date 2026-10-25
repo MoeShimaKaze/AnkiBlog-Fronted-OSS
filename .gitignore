@@ -1,0 +1,34 @@
+# 依赖
+/node_modules/
+
+# 构建产物
+/dist/
+/build/
+*.tsbuildinfo
+
+# 环境变量（保留 .env.example）
+.env.local
+.env.*.local
+
+# Capacitor / Android
+/android/
+/ios/
+
+# 编辑器与系统
+.vscode/
+.idea/
+*.iml
+.DS_Store
+Thumbs.db
+
+# 日志
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# 测试与覆盖率
+/coverage/
+
+# 分析产物
+/stats.html

@@ -1,0 +1,556 @@
+/* ============================================
+   Ant Design 组件暗色玻璃拟态全局样式
+   用于管理后台和所有需要暗色主题的地方
+   ============================================ */
+
+/* DatePicker / RangePicker / TimePicker 下拉面板暗色样式 */
+.dark-glass-picker-dropdown {
+    backdrop-filter: blur(20px) saturate(180%) !important;
+    -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+}
+
+.dark-glass-picker-dropdown .ant-picker-panel-container {
+    background: rgba(30, 30, 30, 0.95) !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    border-radius: 12px !important;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5) !important;
+    overflow: hidden;
+}
+
+.dark-glass-picker-dropdown .ant-picker-header {
+    background: transparent !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+    color: white !important;
+}
+
+.dark-glass-picker-dropdown .ant-picker-header button {
+    color: rgba(255, 255, 255, 0.7) !important;
+}
+
+.dark-glass-picker-dropdown .ant-picker-header button:hover {
+    color: white !important;
+    background: rgba(255, 255, 255, 0.1) !important;
+}
+
+.dark-glass-picker-dropdown .ant-picker-content th {
+    color: rgba(255, 255, 255, 0.6) !important;
+}
+
+.dark-glass-picker-dropdown .ant-picker-cell {
+    color: rgba(255, 255, 255, 0.85) !important;
+}
+
+.dark-glass-picker-dropdown .ant-picker-cell:hover:not(.ant-picker-cell-selected):not(.ant-picker-cell-range-start):not(.ant-picker-cell-range-end) .ant-picker-cell-inner {
+    background: rgba(255, 255, 255, 0.1) !important;
+}
+
+.dark-glass-picker-dropdown .ant-picker-cell-in-view.ant-picker-cell-selected .ant-picker-cell-inner {
+    background: linear-gradient(135deg, #1890ff 0%, #722ed1 100%) !important;
+    border-radius: 6px !important;
+}
+
+.dark-glass-picker-dropdown .ant-picker-cell-in-view.ant-picker-cell-today .ant-picker-cell-inner::before {
+    border-color: #1890ff !important;
+    border-radius: 6px !important;
+}
+
+.dark-glass-picker-dropdown .ant-picker-cell-disabled {
+    color: rgba(255, 255, 255, 0.25) !important;
+}
+
+.dark-glass-picker-dropdown .ant-picker-cell-disabled::before {
+    background: transparent !important;
+}
+
+.dark-glass-picker-dropdown .ant-picker-footer {
+    background: transparent !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+.dark-glass-picker-dropdown .ant-picker-today-btn,
+.dark-glass-picker-dropdown .ant-picker-now-btn {
+    color: #1890ff !important;
+}
+
+.dark-glass-picker-dropdown .ant-picker-ok button {
+    background: linear-gradient(135deg, #1890ff 0%, #722ed1 100%) !important;
+    border: none !important;
+}
+
+/* TimePicker 时间列样式 */
+.dark-glass-picker-dropdown .ant-picker-time-panel {
+    border-left: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+.dark-glass-picker-dropdown .ant-picker-time-panel-column {
+    border-left: 1px solid rgba(255, 255, 255, 0.05) !important;
+}
+
+.dark-glass-picker-dropdown .ant-picker-time-panel-column > li.ant-picker-time-panel-cell .ant-picker-time-panel-cell-inner {
+    color: rgba(255, 255, 255, 0.85) !important;
+}
+
+.dark-glass-picker-dropdown .ant-picker-time-panel-column > li.ant-picker-time-panel-cell:hover .ant-picker-time-panel-cell-inner {
+    background: rgba(255, 255, 255, 0.1) !important;
+}
+
+.dark-glass-picker-dropdown .ant-picker-time-panel-column > li.ant-picker-time-panel-cell-selected .ant-picker-time-panel-cell-inner {
+    background: rgba(24, 144, 255, 0.3) !important;
+    color: #69c0ff !important;
+}
+
+.dark-glass-picker-dropdown .ant-picker-datetime-panel .ant-picker-time-panel {
+    border-left: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Select 下拉面板暗色样式 */
+.dark-glass-select-dropdown {
+    background: rgba(30, 30, 30, 0.95) !important;
+    backdrop-filter: blur(20px) saturate(180%) !important;
+    -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    border-radius: 10px !important;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5) !important;
+    padding: 4px !important;
+}
+
+.dark-glass-select-dropdown .ant-select-item {
+    color: rgba(255, 255, 255, 0.85) !important;
+    border-radius: 6px !important;
+}
+
+.dark-glass-select-dropdown .ant-select-item-option-active:not(.ant-select-item-option-disabled) {
+    background: rgba(255, 255, 255, 0.1) !important;
+}
+
+.dark-glass-select-dropdown .ant-select-item-option-selected:not(.ant-select-item-option-disabled) {
+    background: rgba(24, 144, 255, 0.25) !important;
+    color: #69c0ff !important;
+}
+
+.dark-glass-select-dropdown .ant-select-item-option-disabled {
+    color: rgba(255, 255, 255, 0.3) !important;
+}
+
+.dark-glass-select-dropdown .ant-select-item-group {
+    color: rgba(255, 255, 255, 0.5) !important;
+    font-size: 12px;
+}
+
+/* Cascader 级联选择器暗色样式 */
+.dark-glass-cascader-dropdown {
+    background: rgba(30, 30, 30, 0.95) !important;
+    backdrop-filter: blur(20px) saturate(180%) !important;
+    -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    border-radius: 10px !important;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5) !important;
+}
+
+.dark-glass-cascader-dropdown .ant-cascader-menu {
+    background: transparent !important;
+    border-right: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+.dark-glass-cascader-dropdown .ant-cascader-menu-item {
+    color: rgba(255, 255, 255, 0.85) !important;
+}
+
+.dark-glass-cascader-dropdown .ant-cascader-menu-item:hover {
+    background: rgba(255, 255, 255, 0.1) !important;
+}
+
+.dark-glass-cascader-dropdown .ant-cascader-menu-item-active {
+    background: rgba(24, 144, 255, 0.25) !important;
+    color: #69c0ff !important;
+}
+
+/* TreeSelect 树选择器暗色样式 */
+.dark-glass-tree-select-dropdown {
+    background: rgba(30, 30, 30, 0.95) !important;
+    backdrop-filter: blur(20px) saturate(180%) !important;
+    -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    border-radius: 10px !important;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5) !important;
+}
+
+.dark-glass-tree-select-dropdown .ant-select-tree {
+    background: transparent !important;
+    color: rgba(255, 255, 255, 0.85) !important;
+}
+
+.dark-glass-tree-select-dropdown .ant-select-tree-node-content-wrapper:hover {
+    background: rgba(255, 255, 255, 0.1) !important;
+}
+
+.dark-glass-tree-select-dropdown .ant-select-tree-node-selected {
+    background: rgba(24, 144, 255, 0.25) !important;
+}
+
+/* AutoComplete 自动完成暗色样式 */
+.dark-glass-autocomplete-dropdown {
+    background: rgba(30, 30, 30, 0.95) !important;
+    backdrop-filter: blur(20px) saturate(180%) !important;
+    -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    border-radius: 10px !important;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5) !important;
+}
+
+.dark-glass-autocomplete-dropdown .ant-select-item {
+    color: rgba(255, 255, 255, 0.85) !important;
+}
+
+.dark-glass-autocomplete-dropdown .ant-select-item-option-active {
+    background: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Dropdown 下拉菜单暗色样式 */
+.dark-glass-dropdown {
+    background: rgba(30, 30, 30, 0.95) !important;
+    backdrop-filter: blur(20px) saturate(180%) !important;
+    -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    border-radius: 10px !important;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5) !important;
+    padding: 4px !important;
+}
+
+.dark-glass-dropdown .ant-dropdown-menu {
+    background: transparent !important;
+}
+
+.dark-glass-dropdown .ant-dropdown-menu-item {
+    color: rgba(255, 255, 255, 0.85) !important;
+    border-radius: 6px !important;
+}
+
+.dark-glass-dropdown .ant-dropdown-menu-item:hover {
+    background: rgba(255, 255, 255, 0.1) !important;
+}
+
+.dark-glass-dropdown .ant-dropdown-menu-item-selected {
+    background: rgba(24, 144, 255, 0.25) !important;
+    color: #69c0ff !important;
+}
+
+.dark-glass-dropdown .ant-dropdown-menu-item-disabled {
+    color: rgba(255, 255, 255, 0.3) !important;
+}
+
+.dark-glass-dropdown .ant-dropdown-menu-item-divider {
+    background: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Popover / Tooltip 暗色样式 */
+.dark-glass-popover .ant-popover-inner {
+    background: rgba(30, 30, 30, 0.95) !important;
+    backdrop-filter: blur(20px) saturate(180%) !important;
+    -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5) !important;
+}
+
+.dark-glass-popover .ant-popover-title {
+    color: white !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+.dark-glass-popover .ant-popover-inner-content {
+    color: rgba(255, 255, 255, 0.85) !important;
+}
+
+.dark-glass-popover .ant-popover-arrow::before {
+    background: rgba(30, 30, 30, 0.95) !important;
+}
+
+/* ColorPicker 颜色选择器暗色样式 */
+.dark-glass-color-picker .ant-color-picker-panel {
+    background: rgba(30, 30, 30, 0.95) !important;
+    backdrop-filter: blur(20px) saturate(180%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    border-radius: 10px !important;
+}
+
+.dark-glass-color-picker .ant-color-picker-input input {
+    background: rgba(255, 255, 255, 0.1) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    color: white !important;
+}
+
+/* Message / Notification 消息提示暗色样式 */
+.dark-glass-message .ant-message-notice-content {
+    background: rgba(30, 30, 30, 0.95) !important;
+    backdrop-filter: blur(20px) saturate(180%) !important;
+    -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    border-radius: 10px !important;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5) !important;
+    color: rgba(255, 255, 255, 0.85) !important;
+}
+
+/* ============================================
+   管理后台全局暗色下拉组件自动样式
+   这些样式会自动应用到所有下拉组件
+   ============================================ */
+
+/* 全局 Select 下拉面板暗色样式 */
+.ant-select-dropdown {
+    background: rgba(30, 30, 30, 0.95) !important;
+    backdrop-filter: blur(20px) saturate(180%) !important;
+    -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    border-radius: 10px !important;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5) !important;
+    padding: 4px !important;
+}
+
+.ant-select-dropdown .ant-select-item {
+    color: rgba(255, 255, 255, 0.85) !important;
+    border-radius: 6px !important;
+}
+
+.ant-select-dropdown .ant-select-item-option-active:not(.ant-select-item-option-disabled) {
+    background: rgba(255, 255, 255, 0.1) !important;
+}
+
+.ant-select-dropdown .ant-select-item-option-selected:not(.ant-select-item-option-disabled) {
+    background: rgba(24, 144, 255, 0.25) !important;
+    color: #69c0ff !important;
+}
+
+.ant-select-dropdown .ant-select-item-option-disabled {
+    color: rgba(255, 255, 255, 0.3) !important;
+}
+
+.ant-select-dropdown .ant-select-item-group {
+    color: rgba(255, 255, 255, 0.5) !important;
+}
+
+.ant-select-dropdown .ant-select-item-empty {
+    color: rgba(255, 255, 255, 0.5) !important;
+}
+
+/* 全局 DatePicker / TimePicker / RangePicker 下拉面板暗色样式 */
+.ant-picker-dropdown {
+    backdrop-filter: blur(20px) saturate(180%) !important;
+    -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+}
+
+.ant-picker-dropdown .ant-picker-panel-container {
+    background: rgba(30, 30, 30, 0.95) !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    border-radius: 12px !important;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5) !important;
+    overflow: hidden;
+}
+
+.ant-picker-dropdown .ant-picker-header {
+    background: transparent !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+    color: white !important;
+}
+
+.ant-picker-dropdown .ant-picker-header button {
+    color: rgba(255, 255, 255, 0.7) !important;
+}
+
+.ant-picker-dropdown .ant-picker-header button:hover {
+    color: white !important;
+    background: rgba(255, 255, 255, 0.1) !important;
+}
+
+.ant-picker-dropdown .ant-picker-content th {
+    color: rgba(255, 255, 255, 0.6) !important;
+}
+
+.ant-picker-dropdown .ant-picker-cell {
+    color: rgba(255, 255, 255, 0.85) !important;
+}
+
+.ant-picker-dropdown .ant-picker-cell:hover:not(.ant-picker-cell-selected):not(.ant-picker-cell-range-start):not(.ant-picker-cell-range-end) .ant-picker-cell-inner {
+    background: rgba(255, 255, 255, 0.1) !important;
+}
+
+.ant-picker-dropdown .ant-picker-cell-in-view.ant-picker-cell-selected .ant-picker-cell-inner {
+    background: linear-gradient(135deg, #1890ff 0%, #722ed1 100%) !important;
+    border-radius: 6px !important;
+}
+
+.ant-picker-dropdown .ant-picker-cell-in-view.ant-picker-cell-today .ant-picker-cell-inner::before {
+    border-color: #1890ff !important;
+    border-radius: 6px !important;
+}
+
+.ant-picker-dropdown .ant-picker-cell-disabled {
+    color: rgba(255, 255, 255, 0.25) !important;
+}
+
+.ant-picker-dropdown .ant-picker-cell-disabled::before {
+    background: transparent !important;
+}
+
+.ant-picker-dropdown .ant-picker-footer {
+    background: transparent !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+.ant-picker-dropdown .ant-picker-today-btn,
+.ant-picker-dropdown .ant-picker-now-btn {
+    color: #1890ff !important;
+}
+
+.ant-picker-dropdown .ant-picker-ok button {
+    background: linear-gradient(135deg, #1890ff 0%, #722ed1 100%) !important;
+    border: none !important;
+}
+
+.ant-picker-dropdown .ant-picker-time-panel {
+    border-left: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+.ant-picker-dropdown .ant-picker-time-panel-column {
+    border-left: 1px solid rgba(255, 255, 255, 0.05) !important;
+}
+
+.ant-picker-dropdown .ant-picker-time-panel-column > li.ant-picker-time-panel-cell .ant-picker-time-panel-cell-inner {
+    color: rgba(255, 255, 255, 0.85) !important;
+}
+
+.ant-picker-dropdown .ant-picker-time-panel-column > li.ant-picker-time-panel-cell:hover .ant-picker-time-panel-cell-inner {
+    background: rgba(255, 255, 255, 0.1) !important;
+}
+
+.ant-picker-dropdown .ant-picker-time-panel-column > li.ant-picker-time-panel-cell-selected .ant-picker-time-panel-cell-inner {
+    background: rgba(24, 144, 255, 0.3) !important;
+    color: #69c0ff !important;
+}
+
+/* 全局 TreeSelect 下拉面板暗色样式 */
+.ant-select-tree-dropdown,
+.ant-tree-select-dropdown {
+    background: rgba(30, 30, 30, 0.95) !important;
+    backdrop-filter: blur(20px) saturate(180%) !important;
+    -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    border-radius: 10px !important;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5) !important;
+}
+
+.ant-select-tree {
+    background: transparent !important;
+    color: rgba(255, 255, 255, 0.85) !important;
+}
+
+.ant-select-tree .ant-select-tree-node-content-wrapper:hover {
+    background: rgba(255, 255, 255, 0.1) !important;
+}
+
+.ant-select-tree .ant-select-tree-node-content-wrapper.ant-select-tree-node-selected {
+    background: rgba(24, 144, 255, 0.25) !important;
+    color: #69c0ff !important;
+}
+
+.ant-select-tree .ant-select-tree-switcher {
+    color: rgba(255, 255, 255, 0.6) !important;
+}
+
+/* 全局 Cascader 下拉面板暗色样式 */
+.ant-cascader-dropdown {
+    background: rgba(30, 30, 30, 0.95) !important;
+    backdrop-filter: blur(20px) saturate(180%) !important;
+    -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    border-radius: 10px !important;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5) !important;
+}
+
+.ant-cascader-menu {
+    background: transparent !important;
+    border-right: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+.ant-cascader-menu-item {
+    color: rgba(255, 255, 255, 0.85) !important;
+}
+
+.ant-cascader-menu-item:hover {
+    background: rgba(255, 255, 255, 0.1) !important;
+}
+
+.ant-cascader-menu-item-active:not(.ant-cascader-menu-item-disabled) {
+    background: rgba(24, 144, 255, 0.25) !important;
+    color: #69c0ff !important;
+}
+
+/* 全局 Dropdown 菜单暗色样式 */
+.ant-dropdown {
+    backdrop-filter: blur(20px) saturate(180%) !important;
+    -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+}
+
+.ant-dropdown .ant-dropdown-menu {
+    background: rgba(30, 30, 30, 0.95) !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    border-radius: 10px !important;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5) !important;
+    padding: 4px !important;
+}
+
+.ant-dropdown .ant-dropdown-menu-item {
+    color: rgba(255, 255, 255, 0.85) !important;
+    border-radius: 6px !important;
+}
+
+.ant-dropdown .ant-dropdown-menu-item:hover {
+    background: rgba(255, 255, 255, 0.1) !important;
+}
+
+.ant-dropdown .ant-dropdown-menu-item-selected {
+    background: rgba(24, 144, 255, 0.25) !important;
+    color: #69c0ff !important;
+}
+
+.ant-dropdown .ant-dropdown-menu-item-disabled {
+    color: rgba(255, 255, 255, 0.3) !important;
+}
+
+.ant-dropdown .ant-dropdown-menu-item-divider {
+    background: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* 全局 Popover / Tooltip 暗色样式 */
+.ant-popover .ant-popover-inner {
+    background: rgba(30, 30, 30, 0.95) !important;
+    backdrop-filter: blur(20px) saturate(180%) !important;
+    -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5) !important;
+}
+
+.ant-popover .ant-popover-title {
+    color: white !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+.ant-popover .ant-popover-inner-content {
+    color: rgba(255, 255, 255, 0.85) !important;
+}
+
+.ant-popover .ant-popover-arrow::before {
+    background: rgba(30, 30, 30, 0.95) !important;
+}
+
+/* Tooltip 暗色样式 */
+.ant-tooltip .ant-tooltip-inner {
+    background: rgba(30, 30, 30, 0.95) !important;
+    backdrop-filter: blur(10px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    color: rgba(255, 255, 255, 0.9) !important;
+}
+
+.ant-tooltip .ant-tooltip-arrow::before {
+    background: rgba(30, 30, 30, 0.95) !important;
+}
+

@@ -1,0 +1,218 @@
+/* 移动端英雄按钮网格优化 */
+@media (max-width: 640px) {
+    .hero-buttons-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 8px !important;
+        max-width: 320px !important;
+    }
+
+    .hero-button {
+        height: 45px !important;
+        font-size: 12px !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-buttons-grid {
+        grid-template-columns: 1fr !important;
+        gap: 12px !important;
+        max-width: 280px !important;
+    }
+}
+
+/* 移动端导航栏优化 */
+.mobile-drawer .ant-drawer-content {
+    background: rgba(30, 30, 30, 0.95) !important;
+    backdrop-filter: blur(15px) !important;
+    -webkit-backdrop-filter: blur(15px) !important;
+}
+
+.mobile-drawer .ant-drawer-header {
+    background: transparent !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+.mobile-drawer .ant-drawer-title {
+    color: white !important;
+}
+
+.mobile-drawer .ant-drawer-close {
+    color: rgba(255, 255, 255, 0.8) !important;
+}
+
+.mobile-drawer .ant-drawer-close:hover {
+    color: white !important;
+}
+
+.mobile-drawer .ant-menu {
+    background: transparent !important;
+    border: none !important;
+}
+
+.mobile-drawer .ant-menu-item {
+    border-radius: 8px !important;
+    margin: 4px 0 !important;
+    color: rgba(255, 255, 255, 0.9) !important;
+}
+
+.mobile-drawer .ant-menu-item:hover {
+    background-color: rgba(255, 255, 255, 0.1) !important;
+    color: white !important;
+}
+
+.mobile-drawer .ant-menu-item-icon {
+    color: rgba(255, 255, 255, 0.8) !important;
+}
+
+/* 移动端搜索输入框样式 */
+.mobile-search-input {
+    background: rgba(255, 255, 255, 0.1) !important;
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+    color: white !important;
+}
+
+.mobile-search-input::placeholder {
+    color: rgba(255, 255, 255, 0.6) !important;
+}
+
+.mobile-search-input:focus,
+.mobile-search-input.ant-input-focused {
+    background: rgba(255, 255, 255, 0.15) !important;
+    border-color: rgba(255, 255, 255, 0.5) !important;
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.2) !important;
+}
+
+/* 移动端文字大小优化 */
+@media (max-width: 768px) {
+    .hero-section .ant-typography h1 {
+        font-size: clamp(1.75rem, 8vw, 3rem) !important;
+        line-height: 1.3 !important;
+        margin-bottom: 16px !important;
+    }
+
+    .hero-section .ant-typography-caption {
+        font-size: clamp(0.875rem, 4vw, 1.125rem) !important;
+        line-height: 1.5 !important;
+        margin-bottom: 32px !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-section {
+        padding-top: 1rem !important;
+        padding-bottom: 1rem !important;
+    }
+
+    .hero-section .ant-typography h1 {
+        font-size: clamp(1.5rem, 10vw, 2.5rem) !important;
+        margin-bottom: 12px !important;
+    }
+
+    .hero-section .ant-typography-caption {
+        font-size: clamp(0.75rem, 5vw, 1rem) !important;
+        margin-bottom: 24px !important;
+        padding: 0 8px !important;
+    }
+}
+
+/* 移动端卡片优化 */
+@media (max-width: 768px) {
+    .ant-card .ant-card-body {
+        padding: 16px !important;
+    }
+
+    .ant-card .ant-typography h3 {
+        font-size: clamp(16px, 4vw, 20px) !important;
+        margin-bottom: 12px !important;
+    }
+}
+
+/* 移动端间距优化 */
+@media (max-width: 640px) {
+    .hero-section > div:last-child {
+        padding-bottom: 80px !important; /* 为底部导航留出空间 */
+    }
+}
+
+/* 移动端菜单宽度优化 */
+@media (max-width: 480px) {
+    .mobile-drawer .ant-drawer-content-wrapper {
+        max-width: 90vw !important;
+    }
+}
+
+/* 确保Ant Design组件在移动端正确显示 */
+@media (max-width: 768px) {
+    .ant-menu-horizontal {
+        display: none !important;
+    }
+
+    .ant-input-search {
+        width: 100% !important;
+    }
+
+    .ant-space-compact {
+        flex-wrap: wrap !important;
+    }
+
+    .ant-btn {
+        min-width: auto !important;
+        padding: 4px 8px !important;
+    }
+
+    .ant-avatar {
+        width: 28px !important;
+        height: 28px !important;
+    }
+}
+
+/* 修复移动端滚动问题 */
+@media (max-width: 768px) {
+    body {
+        overflow-x: hidden !important;
+    }
+
+    .hero-section {
+        overflow-x: hidden !important;
+    }
+}
+
+/* 移动端字体优化 */
+@media (max-width: 768px) {
+    body {
+        font-size: 14px !important;
+        line-height: 1.5 !important;
+    }
+
+    .ant-typography {
+        font-size: inherit !important;
+    }
+}
+
+/* 确保移动端触摸友好 */
+@media (max-width: 768px) {
+    .hero-button,
+    .ant-btn {
+        min-height: 44px !important; /* iOS推荐的最小触摸区域 */
+        touch-action: manipulation !important;
+    }
+
+    .ant-menu-item {
+        min-height: 44px !important;
+        line-height: 44px !important;
+    }
+}
+
+/* 移动端安全区域适配 */
+@media (max-width: 768px) {
+    .hero-section {
+        padding-left: max(16px, env(safe-area-inset-left)) !important;
+        padding-right: max(16px, env(safe-area-inset-right)) !important;
+    }
+
+    .mobile-drawer .ant-drawer-body {
+        padding-left: max(16px, env(safe-area-inset-left)) !important;
+        padding-right: max(16px, env(safe-area-inset-right)) !important;
+    }
+}
+
